@@ -1,5 +1,5 @@
 import pytest
-from bat_functions import calculate_bat_power, signal_strength
+from bat_functions import calculate_bat_power, signal_strength, get_bat_vehicle
 
 @pytest.mark.bat_power
 def test_calculate_bat_power():
@@ -28,3 +28,14 @@ def bat_vehicles_dict():
         'Batboat': {'speed': 180, 'armor': 60},
         'Batwing': {'speed': 300, 'armor': 60} 
     }
+
+@pytest.mark.vehicles
+def test_known_or_unknown_vehichle(bat_vehicles_dict):
+    keys = list(bat_vehicles_dict.keys())
+    assert get_bat_vehicle(keys[0]) == bat_vehicles_dict['Batmobile']
+    assert get_bat_vehicle(keys[1]) == bat_vehicles_dict['Batcycle']
+    with pytest.raises(ValueError, match="Unknown vehicle: Batplane"):
+        get_bat_vehicle(keys[2])
+    with pytest.raises(ValueError, match="Unknown vehicle: Batboat"):  
+        get_bat_vehicle(keys[3])
+    assert get_bat_vehicle(keys[4]) == bat_vehicles_dict['Batwing']
