@@ -30,7 +30,7 @@ def bat_vehicles_dict():
     }
 
 @pytest.mark.vehicles
-def test_known_or_unknown_vehichle(bat_vehicles_dict):
+def test_known_or_unknown_vehicle(bat_vehicles_dict):
     keys = list(bat_vehicles_dict.keys())
     assert get_bat_vehicle(keys[0]) == bat_vehicles_dict['Batmobile']
     assert get_bat_vehicle(keys[1]) == bat_vehicles_dict['Batcycle']
