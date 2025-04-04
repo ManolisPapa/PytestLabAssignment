@@ -1,5 +1,6 @@
 import pytest
-from bat_functions import calculate_bat_power, signal_strength, get_bat_vehicle
+from bat_functions import *
+from unittest.mock import patch
 
 @pytest.mark.bat_power
 def test_calculate_bat_power():
@@ -39,3 +40,10 @@ def test_known_or_unknown_vehicle(bat_vehicles_dict):
     with pytest.raises(ValueError, match="Unknown vehicle: Batboat"):  
         get_bat_vehicle(keys[3])
     assert get_bat_vehicle(keys[4]) == bat_vehicles_dict['Batwing']
+
+@pytest.mark.joker_info
+def test_fetch_joker_info():
+    with patch("bat_functions.fetch_joker_info", return_value={'mischief_level': 50, 'location': 'Gotham City Hall'}):
+        info = fetch_joker_info()
+    assert info['mischief_level'] == 50
+    assert info['location'] == 'Gotham City Hall'
