@@ -1,5 +1,6 @@
 import pytest
 from bat_functions import *
+import bat_functions
 from unittest.mock import patch
 
 @pytest.mark.bat_power
@@ -44,6 +45,6 @@ def test_known_or_unknown_vehicle(bat_vehicles_dict):
 @pytest.mark.joker_info
 def test_fetch_joker_info():
     with patch("bat_functions.fetch_joker_info", return_value={'mischief_level': 50, 'location': 'Gotham City Hall'}):
-        info = fetch_joker_info()
+        info = bat_functions.fetch_joker_info()
     assert info['mischief_level'] == 50
     assert info['location'] == 'Gotham City Hall'
